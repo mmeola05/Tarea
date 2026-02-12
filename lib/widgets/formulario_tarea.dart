@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:material/models/tarea.dart';
 
+/// Widget Formulario para crear o editar una [Tarea].
+///
+/// Recibe una [tarea] opcional. Si se proporciona, el formulario
+/// se rellena con los datos de esa tarea para su edición.
+/// Si es `null`, el formulario se inicia vacío para crear una nueva tarea.
 class FormularioTarea extends StatefulWidget {
+  /// La tarea a editar, si existe.
   final Tarea? tarea;
 
+  /// Crea una instancia del formulario.
   const FormularioTarea({super.key, this.tarea});
 
   @override
@@ -11,6 +18,7 @@ class FormularioTarea extends StatefulWidget {
 }
 
 class _FormularioTareaState extends State<FormularioTarea> {
+  // Controladores de texto para los campos del formulario
   final _tituloController = TextEditingController();
   final _descripcionController = TextEditingController();
 

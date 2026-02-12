@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:material/core/colores_app.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+/// Definición del tema global de la aplicación.
+///
+/// Configura los colores, tipografía (Google Fonts Inter) y estilos de botones.
 final miTema = ThemeData(
   primaryColor: ColoresApp.primaryColor,
   primaryColorLight: ColoresApp.primaryLightColor,

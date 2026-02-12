@@ -8,12 +8,26 @@ import 'package:material/widgets/boton_modo.dart';
 import 'package:material/widgets/formulario_tarea.dart';
 import 'package:material/widgets/logo.dart';
 
+/// Pantalla principal de la aplicación que muestra la lista de tareas.
+///
+/// Dispone de:
+/// * Una lista de [TarjetaTarea] para visualizar tareas pendientes o terminadas.
+/// * Un botón flotante [FloatingActionButton] para añadir nuevas tareas.
+/// * Filtros por categoría y estado para organizar la visualización.
 class PaginaPrincipal extends StatefulWidget {
+  /// Callback para cambiar el modo de tema (Claro/Oscuro).
   final void Function(bool) cambiarModo;
+
+  /// Callback para cambiar el color semilla del tema.
   final void Function(int) cambiarColor;
+
+  /// El color actualmente seleccionado.
   final Colores colorElegido;
+
+  /// Indica si el modo actual es "Día" (claro).
   final bool esDeDia;
 
+  /// Constructor de la página principal.
   const PaginaPrincipal({
     super.key,
     required this.cambiarModo,
@@ -73,14 +87,39 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
   }
 
   void _borrarTarea(Tarea t) {
+    final index = _tareas.indexOf(t);
     setState(() {
       _tareas.remove(t);
     });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('Tarea eliminada'),
+        action: SnackBarAction(
+          label: 'DESHACER',
+          onPressed: () {
+            setState(() {
+              _tareas.insert(index, t);
+            });
+          },
+        ),
+      ),
+    );
   }
 
   void _cambiarEstado(Tarea t) {
     setState(() {
       t.terminada = !t.terminada;
+    });
+  }
+
+  void _reordenarTareas(int oldIndex, int newIndex) {
+    setState(() {
+      if (oldIndex < newIndex) {
+        newIndex -= 1;
+      }
+      final Tarea item = _tareas.removeAt(oldIndex);
+      _tareas.insert(newIndex, item);
     });
   }
 
@@ -134,8 +173,33 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
           ),
 
           Expanded(
-            child: _tareasVisibles.isEmpty
+            child: _tareas.isEmpty
                 ? const SinTareas()
+                : _tareasVisibles.isEmpty
+                ? const SinTareas(
+                    mensaje: 'No hay tareas con estos filtros',
+                    submensaje: 'Intenta cambiar la categoría o el estado',
+                  )
+                : _categoriaFiltro == 'Todas' && _estadoFiltro == 'Todas'
+                ? ReorderableListView.builder(
+                    itemCount: _tareasVisibles.length,
+                    onReorder: _reordenarTareas,
+                    itemBuilder: (context, index) {
+                      final tarea = _tareasVisibles[index];
+                      return Dismissible(
+                        key: ValueKey(tarea.id),
+                        background: Container(color: Colors.red),
+                        onDismissed: (_) => _borrarTarea(tarea),
+                        child: TarjetaTarea(
+                          key: ValueKey(tarea.id),
+                          tarea: tarea,
+                          onEliminar: () => _borrarTarea(tarea),
+                          onCambiarEstado: () => _cambiarEstado(tarea),
+                          onEditar: () => _abrirFormulario(tarea: tarea),
+                        ),
+                      );
+                    },
+                  )
                 : ListView.builder(
                     itemCount: _tareasVisibles.length,
                     itemBuilder: (context, index) {

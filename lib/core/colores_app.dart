@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// Clase utilitaria que define la paleta de colores estática de la aplicación.
+///
+/// Contiene constantes para los colores principales, de acento, texto y fondo.
 class ColoresApp {
   static const Color primaryColor = Color(0xFF6200EE);
   static const Color primaryLightColor = Color(0xFFBB86FC);

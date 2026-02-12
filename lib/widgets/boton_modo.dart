@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Widget que muestra un botón para alternar entre modo claro y oscuro.
 class BotonModo extends StatelessWidget {
   const BotonModo({
     super.key,

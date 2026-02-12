@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// Enumeración de los colores disponibles para la aplicación.
+///
+/// Cada valor tiene un [nombre] descriptivo y un [color] asociado de Material Design.
 enum Colores {
   purpuraOscuro('Púpura oscuro', Colors.deepPurple),
   purpuraClaro('Púpura claro', Colors.purple),

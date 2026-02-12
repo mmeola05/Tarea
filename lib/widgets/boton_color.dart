@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:material/core/colores.dart';
 
+/// Widget que muestra un botón para seleccionar el color principal de la app.
+///
+/// Despliega un menú emergente con la lista de colores disponibles en [Colores].
 class BotonColor extends StatelessWidget {
   const BotonColor({
     super.key,

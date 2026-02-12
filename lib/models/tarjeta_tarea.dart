@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:material/core/colores_app.dart';
 import 'package:material/models/tarea.dart';
 
+/// Widget que muestra la información de una [Tarea] en una tarjeta.
+///
+/// Permite interactuar con la tarea: marcarla como completada, eliminarla o editarla.
 class TarjetaTarea extends StatelessWidget {
+  /// Crea una tarjeta para mostrar una [tarea].
   const TarjetaTarea({
     super.key,
     required this.tarea,
@@ -11,9 +15,16 @@ class TarjetaTarea extends StatelessWidget {
     required this.onEditar,
   });
 
+  /// La tarea que se va a mostrar.
   final Tarea tarea;
+
+  /// Callback que se ejecuta al pulsar el botón de eliminar.
   final VoidCallback onEliminar;
+
+  /// Callback que se ejecuta al cambiar el estado del checkbox.
   final VoidCallback onCambiarEstado;
+
+  /// Callback que se ejecuta al pulsar el botón de editar.
   final VoidCallback onEditar;
 
   @override

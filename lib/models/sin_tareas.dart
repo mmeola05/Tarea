@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:material/core/colores_app.dart';
 
+/// Widget que se muestra cuando no hay tareas visibles en la lista.
+///
+/// Muestra un icono central y un mensaje invitando al usuario a crear una nueva tarea.
 class SinTareas extends StatelessWidget {
-  const SinTareas({super.key});
+  /// Mensaje principal a mostrar.
+  final String? mensaje;
+
+  /// Mensaje secundario a mostrar.
+  final String? submensaje;
+
+  /// Constructor constante de [SinTareas].
+  const SinTareas({super.key, this.mensaje, this.submensaje});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +37,7 @@ class SinTareas extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             Text(
-              'No Tienes Tareas Pendientes',
+              mensaje ?? 'No Tienes Tareas Pendientes',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
@@ -36,7 +46,8 @@ class SinTareas extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'Añade una nueva tarea para empezar a organizarte. ¡Pulsa el botón + para comenzar!',
+              submensaje ??
+                  'Añade una nueva tarea para empezar a organizarte. ¡Pulsa el botón + para comenzar!',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: Colors.grey[700],
